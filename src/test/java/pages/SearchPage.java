@@ -32,7 +32,7 @@ public class SearchPage {
         PageFactory.initElements(driver,this);
     }
 
-    public boolean checkSearchResult(String keyword){
+    public boolean checkSearchResult(String keyword, int reportType){
         boolean isResult = true;
         PageNavigationHandler.waitFor(driver,By.id("product_listing"), Constant.WAITING_CONTROL);
         List<WebElement> products = driver.findElements(By.cssSelector("#product_listing > div"));
@@ -43,7 +43,9 @@ public class SearchPage {
             boolean isContainKeyword = product.getText().contains(keyword);
             if(!isContainKeyword){
                 isResult = false;
-//                System.out.println("FAIL ProductId: " + productBoxId + " does not contain \"" + keyword + "\" in its title" + "\n" + product.getText());
+                if(reportType == Constant.DETAIL_TESTCASE_REPORT){
+                    System.out.println("FAIL ProductId: " + productBoxId + " does not contain \"" + keyword + "\" in its title" + "\n" + product.getText());
+                }
             }
         }
         return isResult;

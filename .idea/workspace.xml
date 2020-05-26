@@ -3,10 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="d28ad3dc-5b59-4766-8f31-7d71dd1b3898" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/pages/CartPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/pages/CartPage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/pages/SearchPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/pages/SearchPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/testcases/AddToCart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/testcases/AddToCart.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/utils/Constant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/utils/Constant.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/pages/CartPage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/pages/CartPage.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/pages/SearchPage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/pages/SearchPage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/testcases/AddToCart.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/testcases/AddToCart.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/utils/Constant.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/utils/Constant.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -35,6 +38,7 @@
   <component name="ProjectId" id="1cGkpYGWGucjBiW0r7rxRlldWN6" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
@@ -118,7 +122,7 @@
       <workItem from="1590162501454" duration="150000" />
       <workItem from="1590166503643" duration="8265000" />
       <workItem from="1590372304751" duration="6891000" />
-      <workItem from="1590411868998" duration="45647000" />
+      <workItem from="1590411868998" duration="48494000" />
     </task>
     <servers />
   </component>

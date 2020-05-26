@@ -28,6 +28,7 @@ public class AddToCart {
     private SearchPage searchPage;
     private CartPage cartPage;
     private JavascriptExecutor js;
+    private int testReportMode;
 
     public AddToCart(){
         ChromeOptions options = new ChromeOptions();
@@ -37,6 +38,7 @@ public class AddToCart {
         searchPage = new SearchPage(driver);
         cartPage = new CartPage(driver);
         js = (JavascriptExecutor)driver;
+        testReportMode = Constant.SIMPLE_TESTCASE_REPORT; // DETAIL_TESTCASE_REPORT
     }
 
     @Before
@@ -62,7 +64,7 @@ public class AddToCart {
 
         System.out.println("Verify every product contains 'Table': " + isVerifyKeyword);
         System.out.println("Verify product is added into cart successfully: " + isVerifyAddedProductToCart);
-        System.out.println("Verify after empty cart 'Your cart is empty' : " + isVerifyCartMessage);
+        System.out.println("Verify after empty cart 'Your cart is empty': " + isVerifyCartMessage);
 
         assertArrayEquals(new boolean[]{isVerifyKeyword,isVerifyAddedProductToCart,isVerifyCartMessage},new boolean[]{false,true,true});
     }
@@ -79,7 +81,7 @@ public class AddToCart {
         for(int i=1; i<=lastpageNum.intValue(); i++){
             int tempIndex = i;
             System.out.println("Verifying on page: " + tempIndex );
-            boolean isCurrentPage = searchPage.checkSearchResult("Table");
+            boolean isCurrentPage = searchPage.checkSearchResult("Table",this.testReportMode);
             isResult = isResult && isCurrentPage;
             if(tempIndex < lastpageNum.intValue()){
                 searchPage.moveToNextPage();
