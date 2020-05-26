@@ -49,7 +49,7 @@ public class CartPage {
 
     public String getEmptyCartMessage(){
         try {
-            Thread.sleep(200);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

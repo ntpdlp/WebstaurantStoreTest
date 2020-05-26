@@ -59,9 +59,8 @@ public class SearchPage {
     public String getProductLastFound(){
         PageNavigationHandler.waitFor(driver,By.className("description"),Constant.WAITING_CONTROL);
         WebElement productDescription = driver.findElement(By.cssSelector("div:last-child .description"));
-        String temp = productDescription.getText();
-        System.out.println(temp);
-        return temp;
+        System.out.println("Last of Found Product: " + productDescription.getText());
+        return productDescription.getText();
     }
 
     public void clickAddToCartLastFound(){
