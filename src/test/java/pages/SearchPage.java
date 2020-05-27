@@ -1,5 +1,6 @@
 package pages;
 
+import com.sun.tracing.dtrace.FunctionName;
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -24,6 +25,27 @@ public class SearchPage {
     private WebDriver driver;
     private WebDriverWait wait;
     private JavascriptExecutor js;
+    private static final int VIEW_CART_BUTTON_INDEX = 0;
+    private static final int NEXT_BUTTON_INDEX = 0;
+
+    @FindBy(css = "#paging>div > ul > li")
+    private List<WebElement> pages;
+    @FindBy(id = "product_listing")
+    private WebElement productPane;
+    @FindBy(css = "#product_listing > div")
+    private List<WebElement> products;
+    @FindBy(css = "div:last-child .add_qty.quantity")
+    private WebElement txtQuantityFieldLastFoundItem;
+    @FindBy(css = "div:last-child .btn.btn-cart.btn-small")
+    private WebElement btnAddToCartLastFoundItem;
+    @FindBy(id = "ag-sub-grid")
+    private WebElement productAccessories;
+    @FindBy (xpath = "//button[text()='Add to Cart']")
+    private WebElement btnAddToCartOnProductAccessories;
+    @FindBy(css = ".notify-body > a")
+    private List<WebElement> buttons;
+    @FindBy(css = "div>div>ul>li a[rel='next']")
+    private List<WebElement> nexts;
 
     public SearchPage(WebDriver driver){
         this.driver = driver;
@@ -33,17 +55,14 @@ public class SearchPage {
     }
 
     public boolean verifyEveryProductsContainTitle(String keyword, int reportType){
-        //how many pages returned?
         boolean isResult = true;
-        List<WebElement> pages = driver.findElements(By.cssSelector("#paging>div > ul > li"));
-        //check: every product contain 'Table'
         String lastpageDisplay = pages.get(pages.size() - 2).getText();
         Integer lastpageNum = Integer.parseInt(lastpageDisplay);
         System.out.println("Search Result is displayed totally in " + lastpageNum.intValue() + " pages. ");
         for(int i=1; i<=lastpageNum.intValue(); i++){
             int tempIndex = i;
             System.out.println("Verifying on page: " + tempIndex );
-            boolean isCurrentPage = checkSearchResult(keyword,reportType);
+            boolean isCurrentPage = checkSearchResultPage(keyword,reportType);
             isResult = isResult && isCurrentPage;
             if(tempIndex < lastpageNum.intValue()){
                 moveToNextPage();
@@ -52,30 +71,35 @@ public class SearchPage {
         return isResult;
     }
 
-    public boolean checkSearchResult(String keyword, int reportType){
+    public boolean checkSearchResultPage(String keyword, int reportType){
         boolean isResult = true;
-        PageNavigationHandler.waitFor(driver,By.id("product_listing"), Constant.WAITING_CONTROL);
-        List<WebElement> products = driver.findElements(By.cssSelector("#product_listing > div"));
-        int productPerPage = products.size();
-        for(int i = 1; i<=productPerPage; i++){
+        wait.until(ExpectedConditions.visibilityOf(productPane));
+        int totalProductPerPage = products.size();
+        for(int i = 1; i<=totalProductPerPage; i++){
             String productBoxId = "productBox" + i;
             WebElement product = driver.findElement(By.id(productBoxId));
             boolean isContainKeyword = product.getText().contains(keyword);
             if(!isContainKeyword){
                 isResult = false;
-                if(reportType == Constant.DETAIL_TESTCASE_REPORT){
-                    System.out.println("FAIL ProductId: " + productBoxId + " does not contain \"" + keyword + "\" in its title" + "\n" + product.getText());
-                }
+                printProductTitleDontQualify(productBoxId,keyword,product,reportType);
             }
         }
         return isResult;
     }
 
-    public void inputQuantityLastFound(String quantity){
-        PageNavigationHandler.waitFor(driver,By.className("add_qty"),Constant.WAITING_CONTROL);
-        WebElement txtQuantityLastItem = driver.findElement(By.cssSelector("div:last-child .add_qty.quantity"));
-        txtQuantityLastItem.clear();
-        txtQuantityLastItem.sendKeys(quantity);
+    public void printProductTitleDontQualify(String productId, String keyword, WebElement webElement, int reportType){
+        if(reportType == Constant.DETAIL_TESTCASE_REPORT){
+            String productInfo = webElement.getText();
+            String str = "FAIL : " + productId + " does not contain \"" + keyword + "\" in its title" + "\n" + productInfo;
+            System.out.println(str);
+        }
+    }
+
+    public void inputQuantity(String quantity, WebElement webElement){
+//        PageNavigationHandler.waitFor(driver,By.className("add_qty"),Constant.WAITING_CONTROL);
+        wait.until(ExpectedConditions.visibilityOf(webElement));
+        webElement.clear();
+        webElement.sendKeys(quantity);
     }
 
     public String getProductLastFound(){
@@ -85,16 +109,16 @@ public class SearchPage {
         return productDescription.getText();
     }
 
-    public void clickAddToCartLastFound(){
-        WebElement btnAddToCartLastItem = driver.findElement(By.cssSelector("div:last-child .btn.btn-cart.btn-small"));
-        js.executeScript("arguments[0].click();",btnAddToCartLastItem);
+    public void clickAddToCartLastFoundItem(WebElement webElement){
+        js.executeScript("arguments[0].click();",webElement);
+
     }
 
     public void addToCartLastedFoundItem(String quantity){
-        inputQuantityLastFound(quantity);
-        clickAddToCartLastFound();
+        inputQuantity(quantity,this.txtQuantityFieldLastFoundItem);
+        clickAddToCartLastFoundItem(this.btnAddToCartLastFoundItem);
         driver.manage().timeouts().implicitlyWait(Constant.WAITING_WINDOW,TimeUnit.SECONDS);
-        PageNavigationHandler.waitFor(driver,By.id("ag-sub-grid"),Constant.WAITING_CONTROL);
+        System.out.println("need to check > or >=");
         boolean isPresentAccessories = driver.findElements(By.id("ag-sub-grid")).size() >= 1;
         if(isPresentAccessories){
             confirmProductAccessories();
@@ -105,25 +129,21 @@ public class SearchPage {
 
     public void confirmProductAccessories(){
         driver.manage().timeouts().implicitlyWait(Constant.WAITING_WINDOW,TimeUnit.SECONDS);
-        PageNavigationHandler.waitFor(driver,By.id("myModalLabel"),Constant.WAITING_CONTROL);
+        this.btnAddToCartOnProductAccessories.click();
+//        PageNavigationHandler.waitFor(driver,By.id("myModalLabel"),Constant.WAITING_CONTROL);
 //        String productName = driver.findElement(By.id("myModalLabel")).getText();
 //        System.out.println("Product Accessories title: " + productName);
-        WebElement btnAddToCart = driver.findElement(By.xpath("//button[text()='Add to Cart']"));
-        btnAddToCart.click();
     }
 
     public void clickViewCartButton(){
         driver.manage().timeouts().implicitlyWait(Constant.WAITING_WINDOW,TimeUnit.SECONDS);
-        PageNavigationHandler.waitFor(driver,By.xpath("//a[text()='View Cart']"),Constant.WAITING_CONTROL);
-        List<WebElement> buttons = driver.findElements(By.cssSelector(".notify-body > a"));
-        WebElement viewCartLink = buttons.get(0);
+//        PageNavigationHandler.waitFor(driver,By.xpath("//a[text()='View Cart']"),Constant.WAITING_CONTROL);
+        WebElement viewCartLink = this.buttons.get(VIEW_CART_BUTTON_INDEX);
         viewCartLink.click();
     }
 
     public void moveToNextPage(){
-        List<WebElement> nexts = driver.findElements(By.cssSelector("div>div>ul>li a[rel='next']"));
-        nexts.get(0).click();
-
+        this.nexts.get(NEXT_BUTTON_INDEX).click();
     }
 
 }

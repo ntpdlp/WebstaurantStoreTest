@@ -60,4 +60,7 @@ public class CartPage {
         return cartMessage;
     }
 
+    public boolean verifyCartMessage(String exptected){
+        return getEmptyCartMessage().compareTo(exptected)==0;
+    }
 }

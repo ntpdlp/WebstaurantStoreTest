@@ -3,8 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="d28ad3dc-5b59-4766-8f31-7d71dd1b3898" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/pages/CartPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/pages/CartPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/pages/HomePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/pages/HomePage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/pages/SearchPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/pages/SearchPage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/testcases/AddToCart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/testcases/AddToCart.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/pages/CartPage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/pages/CartPage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/pages/HomePage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/pages/HomePage.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/pages/SearchPage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/pages/SearchPage.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/testcases/AddToCart.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/testcases/AddToCart.class" afterDir="false" />
     </list>
@@ -83,6 +87,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="AddToCart.TC_001_Cart_EmptyCartHavingProducts" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Webstaurantstore" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="testcases.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="testcases" />
+      <option name="MAIN_CLASS_NAME" value="testcases.AddToCart" />
+      <option name="METHOD_NAME" value="TC_001_Cart_EmptyCartHavingProducts" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="TestEmptyCartWithAddedItem" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Webstaurantstore" />
       <extension name="coverage">
@@ -101,6 +121,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.AddToCart" />
+        <item itemvalue="JUnit.AddToCart.TC_001_Cart_EmptyCartHavingProducts" />
         <item itemvalue="JUnit.TestEmptyCartWithAddedItem" />
         <item itemvalue="Application.TestEmptyCartWithAddedItem" />
       </list>
@@ -119,7 +140,15 @@
       <workItem from="1590162501454" duration="150000" />
       <workItem from="1590166503643" duration="8265000" />
       <workItem from="1590372304751" duration="6891000" />
-      <workItem from="1590411868998" duration="50835000" />
+      <workItem from="1590411868998" duration="51225000" />
+      <workItem from="1590555397551" duration="4212000" />
+      <workItem from="1590559682400" duration="102000" />
+      <workItem from="1590559807474" duration="2491000" />
+      <workItem from="1590562422991" duration="146000" />
+      <workItem from="1590562591418" duration="161000" />
+      <workItem from="1590562777830" duration="179000" />
+      <workItem from="1590562975687" duration="133000" />
+      <workItem from="1590578869340" duration="183000" />
     </task>
     <servers />
   </component>

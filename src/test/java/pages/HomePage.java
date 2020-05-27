@@ -8,25 +8,29 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.Constant;
 
 public class HomePage {
-    protected WebDriver driver;
-
-    public HomePage(WebDriver driver){
-        this.driver = driver;
-        PageFactory.initElements(driver,this);
-    }
+    private WebDriver driver;
+    private WebDriverWait wait;
 
     @FindBy(id="searchval")
     private WebElement txtSearchVal;
     @FindBy(css = ".btn.btn-info.banner-search-btn")
     private WebElement btnSearch;
+    @FindBy(id="paging")
+    private WebElement pagination;
+
+    public HomePage(WebDriver driver){
+        this.driver = driver;
+        this.wait = new WebDriverWait(driver, Constant.WAITING_CONTROL);
+        PageFactory.initElements(driver,this);
+    }
 
     public void SearchByKeyword(String keyword){
         this.txtSearchVal.sendKeys(keyword);
         this.btnSearch.click();
-        WebDriverWait wait = new WebDriverWait(driver,120);
-        WebElement pagination = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#paging")));
+        wait.until(ExpectedConditions.visibilityOf(this.pagination));
     }
 
 }

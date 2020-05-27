@@ -58,15 +58,14 @@ public class AddToCart {
         homepage.SearchByKeyword("stainless work table");
         boolean isTitle = searchPage.verifyEveryProductsContainTitle("Table",reportType);
         searchPage.addToCartLastedFoundItem("5");
-        boolean isVerifyAddedProductToCart = cartPage.verifyProductDisplayOnCart(searchPage.getProductLastFound());
+        boolean isProductAdded = cartPage.verifyProductDisplayOnCart(searchPage.getProductLastFound());
         cartPage.emptyCart();
-        boolean isVerifyCartMessage = cartPage.getEmptyCartMessage().contains("Your cart is empty.");
+        boolean isEmptyMessage = cartPage.verifyCartMessage("Your cart is empty.");
 
         System.out.println("Verify every product contains 'Table': " + isTitle);
-        System.out.println("Verify product is added into cart successfully: " + isVerifyAddedProductToCart);
-        System.out.println("Verify after empty cart 'Your cart is empty': " + isVerifyCartMessage);
-
-        assertArrayEquals(new boolean[]{isTitle,isVerifyAddedProductToCart,isVerifyCartMessage},new boolean[]{false,true,true});
+        System.out.println("Verify product is added into cart successfully: " + isProductAdded);
+        System.out.println("Verify after empty cart 'Your cart is empty': " + isEmptyMessage);
+        assertArrayEquals(new boolean[]{isTitle,isProductAdded,isEmptyMessage},new boolean[]{false,true,true});
     }
 
 
