@@ -19,7 +19,6 @@ public class CartPage {
     private WebDriverWait wait;
     private static final int YOUR_CART_IS_EMPTY_INDEX = 0;
 
-
     public CartPage(WebDriver driver){
         this.driver = driver;
         PageFactory.initElements(driver,this);
@@ -31,9 +30,11 @@ public class CartPage {
     @FindBy(css = ".itemDescription.description > a")
     private WebElement product;
     @FindBy(xpath = "//a[text()='Empty Cart']")
-    private WebElement btnEmptyCart;
+    private WebElement linkEmptyCartOnHeader;
     @FindBy(css = ".empty-cart__text > p")
     private List<WebElement> messages;
+    @FindBy(xpath = "//button[text()='Empty Cart']")
+    private WebElement btnEmptyCartOnDialog;
 
     public boolean verifyProductDisplayOnCart(String productName){
         driver.manage().timeouts().implicitlyWait(Constant.WAITING_WINDOW, TimeUnit.SECONDS);
@@ -43,17 +44,16 @@ public class CartPage {
     }
 
     public void emptyCart(){
-        PageNavigationHandler.waitFor(driver,By.cssSelector(".cartItemsHeader.toolbar"),Constant.WAITING_CONTROL);
-        this.btnEmptyCart.click();
+        wait.until(ExpectedConditions.elementToBeClickable(this.linkEmptyCartOnHeader));
+        this.linkEmptyCartOnHeader.click();
         confirmEmptyCartDialog();
     }
 
     public void confirmEmptyCartDialog(){
         driver.manage().timeouts().implicitlyWait(Constant.WAITING_WINDOW, TimeUnit.SECONDS);
         PageNavigationHandler.waitFor(driver,By.className("modal-footer"),Constant.WAITING_CONTROL);
-        List<WebElement> buttons = driver.findElements(By.cssSelector(".modal-footer > button"));
-        WebElement btnEmptyCart = buttons.get(3);
-        btnEmptyCart.click();
+        wait.until(ExpectedConditions.visibilityOf(btnEmptyCartOnDialog));
+        this.btnEmptyCartOnDialog.click();
     }
 
     public String getEmptyCartMessage(){
