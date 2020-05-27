@@ -32,6 +32,26 @@ public class SearchPage {
         PageFactory.initElements(driver,this);
     }
 
+    public boolean verifyEveryProductsContainTitle(String keyword, int reportType){
+        //how many pages returned?
+        boolean isResult = true;
+        List<WebElement> pages = driver.findElements(By.cssSelector("#paging>div > ul > li"));
+        //check: every product contain 'Table'
+        String lastpageDisplay = pages.get(pages.size() - 2).getText();
+        Integer lastpageNum = Integer.parseInt(lastpageDisplay);
+        System.out.println("Search Result is displayed totally in " + lastpageNum.intValue() + " pages. ");
+        for(int i=1; i<=lastpageNum.intValue(); i++){
+            int tempIndex = i;
+            System.out.println("Verifying on page: " + tempIndex );
+            boolean isCurrentPage = checkSearchResult(keyword,reportType);
+            isResult = isResult && isCurrentPage;
+            if(tempIndex < lastpageNum.intValue()){
+                moveToNextPage();
+            }
+        }
+        return isResult;
+    }
+
     public boolean checkSearchResult(String keyword, int reportType){
         boolean isResult = true;
         PageNavigationHandler.waitFor(driver,By.id("product_listing"), Constant.WAITING_CONTROL);
