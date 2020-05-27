@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -16,6 +17,7 @@ import java.util.concurrent.TimeUnit;
 public class CartPage {
     private WebDriver driver;
     private WebDriverWait wait;
+    private static final int YOUR_CART_IS_EMPTY_INDEX = 0;
 
 
     public CartPage(WebDriver driver){
@@ -24,18 +26,25 @@ public class CartPage {
         wait = new WebDriverWait(driver,Constant.WAITING_CONTROL);
     }
 
+    @FindBy(id = "cartItemCountSpan")
+    private WebElement cartItemHeader;
+    @FindBy(css = ".itemDescription.description > a")
+    private WebElement product;
+    @FindBy(xpath = "//a[text()='Empty Cart']")
+    private WebElement btnEmptyCart;
+    @FindBy(css = ".empty-cart__text > p")
+    private List<WebElement> messages;
+
     public boolean verifyProductDisplayOnCart(String productName){
         driver.manage().timeouts().implicitlyWait(Constant.WAITING_WINDOW, TimeUnit.SECONDS);
-        WebElement product = driver.findElement(By.cssSelector(".itemDescription.description > a"));
-        String productDescription = product.getText();
+        String productDescription = this.product.getText();
         int compareResult = productDescription.compareTo(productName);
         return compareResult==0;
     }
 
     public void emptyCart(){
         PageNavigationHandler.waitFor(driver,By.cssSelector(".cartItemsHeader.toolbar"),Constant.WAITING_CONTROL);
-        List<WebElement> emptyCarts = driver.findElements(By.cssSelector(".cartItemsHeader > div > a"));
-        emptyCarts.get(0).click();
+        this.btnEmptyCart.click();
         confirmEmptyCartDialog();
     }
 
@@ -48,16 +57,24 @@ public class CartPage {
     }
 
     public String getEmptyCartMessage(){
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        driver.manage().timeouts().implicitlyWait(Constant.WAITING_WINDOW, TimeUnit.SECONDS);
-        PageNavigationHandler.waitFor(driver,By.className("empty-cart__text"),Constant.WAITING_CONTROL);
-        List<WebElement> messages = driver.findElements(By.cssSelector(".empty-cart__text > p"));
-        String cartMessage = messages.get(0).getText();
+        waitForRefreshCartPageShowEmptyMessage();
+        String cartMessage = this.messages.get(YOUR_CART_IS_EMPTY_INDEX).getText();
         return cartMessage;
+    }
+
+    public void waitForRefreshCartPageShowEmptyMessage(){
+        int milis = Constant.WAITING_CONTROL*100;
+        String carts = this.cartItemHeader.getText();
+        int initTime = Constant.WAITING_CONTROL;
+        while(carts.compareTo("0")!=0 && initTime<milis){
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            initTime = initTime + (Constant.WAITING_CONTROL*10);
+            carts = this.cartItemHeader.getText();
+        }
     }
 
     public boolean verifyCartMessage(String exptected){
