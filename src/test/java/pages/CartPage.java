@@ -37,7 +37,6 @@ public class CartPage {
     private WebElement btnEmptyCartOnDialog;
 
     public boolean verifyProductDisplayOnCart(String productName){
-        driver.manage().timeouts().implicitlyWait(Constant.WAITING_WINDOW, TimeUnit.SECONDS);
         String productDescription = this.product.getText();
         int compareResult = productDescription.compareTo(productName);
         return compareResult==0;
@@ -50,8 +49,7 @@ public class CartPage {
     }
 
     public void confirmEmptyCartDialog(){
-        driver.manage().timeouts().implicitlyWait(Constant.WAITING_WINDOW, TimeUnit.SECONDS);
-        PageNavigationHandler.waitFor(driver,By.className("modal-footer"),Constant.WAITING_CONTROL);
+        driver.manage().timeouts().implicitlyWait(Constant.WAITING_WINDOW,TimeUnit.SECONDS);
         wait.until(ExpectedConditions.visibilityOf(btnEmptyCartOnDialog));
         this.btnEmptyCartOnDialog.click();
     }
