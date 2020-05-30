@@ -3,8 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="d28ad3dc-5b59-4766-8f31-7d71dd1b3898" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/pages/CartPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/pages/CartPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/pages/CartPage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/pages/CartPage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/pages/SearchPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/pages/SearchPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/testcases/AddToCart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/testcases/AddToCart.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/utils/Constant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/utils/Constant.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -142,7 +144,8 @@
       <workItem from="1590562591418" duration="161000" />
       <workItem from="1590562777830" duration="179000" />
       <workItem from="1590562975687" duration="133000" />
-      <workItem from="1590578869340" duration="5072000" />
+      <workItem from="1590578869340" duration="6443000" />
+      <workItem from="1590781608259" duration="2448000" />
     </task>
     <servers />
   </component>

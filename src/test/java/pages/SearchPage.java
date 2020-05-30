@@ -96,7 +96,6 @@ public class SearchPage {
     }
 
     public void inputQuantity(String quantity, WebElement webElement){
-//        PageNavigationHandler.waitFor(driver,By.className("add_qty"),Constant.WAITING_CONTROL);
         wait.until(ExpectedConditions.visibilityOf(webElement));
         webElement.clear();
         webElement.sendKeys(quantity);
@@ -130,14 +129,10 @@ public class SearchPage {
     public void confirmProductAccessories(){
         driver.manage().timeouts().implicitlyWait(Constant.WAITING_WINDOW,TimeUnit.SECONDS);
         this.btnAddToCartOnProductAccessories.click();
-//        PageNavigationHandler.waitFor(driver,By.id("myModalLabel"),Constant.WAITING_CONTROL);
-//        String productName = driver.findElement(By.id("myModalLabel")).getText();
-//        System.out.println("Product Accessories title: " + productName);
     }
 
     public void clickViewCartButton(){
         driver.manage().timeouts().implicitlyWait(Constant.WAITING_WINDOW,TimeUnit.SECONDS);
-//        PageNavigationHandler.waitFor(driver,By.xpath("//a[text()='View Cart']"),Constant.WAITING_CONTROL);
         WebElement viewCartLink = this.buttons.get(VIEW_CART_BUTTON_INDEX);
         viewCartLink.click();
     }

@@ -31,9 +31,8 @@ public class AddToCart {
     private int reportType;
 
     public AddToCart(){
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--disable-notification");
-        driver = new ChromeDriver(options);
+        System.setProperty("webdriver.chrome.driver",Constant.DRIVE_PATH);
+        driver = new ChromeDriver();
         homepage = new HomePage(driver);
         searchPage = new SearchPage(driver);
         cartPage = new CartPage(driver);
